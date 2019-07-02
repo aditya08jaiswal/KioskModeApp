@@ -18,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.google.codelabs.cosu.com.YOLOHealthATM.codelabs.cosu.LockedActivity">
+    tools:context="com.YOLOHealthATM.KioskMode.main.LockedActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -30,11 +30,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lock_imageView"
-            android:contentDescription="@string/lock_image_description"/>
+        <Button
+            android:id="@+id/app1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="APP1"/>
+
+        <Button
+            android:id="@+id/app2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="APP2"/>
     </LinearLayout>
 
     <LinearLayout

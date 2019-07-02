@@ -1,19 +1,15 @@
 package com.YOLOHealthATM.KioskMode.main;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityOptions;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class MainActivity extends Activity {
 

@@ -1,22 +1,7 @@
-// Copyright 2016 Google Inc.
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//      http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package com.YOLOHealthATM.KioskMode.main;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.ActivityOptions;
 import android.app.admin.DevicePolicyManager;
 import android.app.admin.SystemUpdatePolicy;
 import android.content.ComponentName;
@@ -25,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.UserManager;
 import android.provider.Settings;
@@ -61,7 +45,6 @@ public class LockedActivity extends Activity {
         setContentView(R.layout.activity_locked);
 
         mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-
 
         // Setup stop lock task button
         stopLockButton = findViewById(R.id.stop_lock_button);
@@ -125,6 +108,7 @@ public class LockedActivity extends Activity {
         setUserRestriction(UserManager.DISALLOW_ADD_USER, active);
         setUserRestriction(UserManager.DISALLOW_MOUNT_PHYSICAL_MEDIA, active);
         setUserRestriction(UserManager.DISALLOW_ADJUST_VOLUME, active);
+        setUserRestriction(UserManager.DISALLOW_APPS_CONTROL, active);
 
         // disable keyguard and status bar
         mDevicePolicyManager.setKeyguardDisabled(mAdminComponentName, active);
@@ -144,8 +128,7 @@ public class LockedActivity extends Activity {
 
         // set this Activity as a lock task package
 
-        mDevicePolicyManager.setLockTaskPackages(mAdminComponentName,
-                active ? new String[]{getPackageName()} : new String[]{});
+        mDevicePolicyManager.setLockTaskPackages(mAdminComponentName, active ? new String[]{getPackageName()} : new String[]{});
 
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_MAIN);
         intentFilter.addCategory(Intent.CATEGORY_HOME);
@@ -154,12 +137,9 @@ public class LockedActivity extends Activity {
         if (active) {
             // set Cosu activity as home intent receiver so that it is started
             // on reboot
-            mDevicePolicyManager.addPersistentPreferredActivity(
-                    mAdminComponentName, intentFilter, new ComponentName(
-                            getPackageName(), LockedActivity.class.getName()));
+            mDevicePolicyManager.addPersistentPreferredActivity(mAdminComponentName, intentFilter, new ComponentName(getPackageName(), LockedActivity.class.getName()));
         } else {
-            mDevicePolicyManager.clearPackagePersistentPreferredActivities(
-                    mAdminComponentName, getPackageName());
+            mDevicePolicyManager.clearPackagePersistentPreferredActivities(mAdminComponentName, getPackageName());
         }
     }
 
